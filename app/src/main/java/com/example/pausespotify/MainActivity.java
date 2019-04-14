@@ -3,22 +3,15 @@ package com.example.pausespotify;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-
-
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
-
-import com.spotify.protocol.client.Subscription;
-import com.spotify.protocol.types.PlayerState;
-import com.spotify.protocol.types.Track;
 
 public class MainActivity extends AppCompatActivity {
 
