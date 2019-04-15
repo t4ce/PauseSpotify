@@ -1,6 +1,7 @@
 package com.example.pausespotify;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.NumberPicker;
-
+import android.widget.TextView;
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String REDIRECT_URI = "testschema://callback";
     private SpotifyAppRemote mSpotifyAppRemote;
 
+    CountDownTimer cdt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,35 +31,51 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final NumberPicker np = (NumberPicker) findViewById(R.id.np);
+        final NumberPicker np = findViewById(R.id.np);
+        final TextView tf = findViewById(R.id.tf);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Timer started with: " + np.getValue()+"min.", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "timer started with: " + np.getValue() + "min.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                try {
-                    connected();
-                } catch (Exception e){
-                    System.out.println();
+
+                if (cdt != null){
+                    cdt.cancel();
+                    tf.setText("");
                 }
+
+                CountDownTimer cdt = new CountDownTimer(1000 * 60 * np.getValue(), 1000) {
+                    public void onTick(long millisUntilFinished) {
+                        long sec = millisUntilFinished / 1000;
+                        long min = sec / 60;
+                        tf.setText("time remaining " + min + ":" + sec % 60);
+                    }
+                    public void onFinish() {
+                        try {
+                            tf.setText("finished");
+                            sendPause();
+                        } catch (Exception e){
+                            System.out.println();
+                        }
+                    }
+                }.start();
+
+                setCDT(cdt);
             }
         });
-
-
-
-        //Populate NumberPicker values from minimum and maximum value range
-        //Set the minimum value of NumberPicker
-        np.setMinValue(1);
-        //Specify the maximum value/number of NumberPicker
+        // number picker stuff
+        np.setMinValue(0);
         np.setMaxValue(60);
-
         np.setScaleX(2f);
-
         np.setScaleY(2f);
         //Gets whether the selector wheel wraps when reaching the min/max value.
         np.setWrapSelectorWheel(true);
+    }
+
+    void setCDT(CountDownTimer cdt){
+        this.cdt = cdt;
     }
 
     @Override
@@ -96,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         SpotifyAppRemote.disconnect(mSpotifyAppRemote);
     }
-    private void connected() {
+    private void sendPause() {
         mSpotifyAppRemote.getPlayerApi().pause();
     }
 
