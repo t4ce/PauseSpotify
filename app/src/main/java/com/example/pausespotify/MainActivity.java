@@ -1,6 +1,5 @@
 package com.example.pausespotify;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +16,8 @@ import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String CLIENT_ID = "9f1f5bb5f92a43ac804d7887c9dad3fd";
@@ -24,6 +25,16 @@ public class MainActivity extends AppCompatActivity {
     private SpotifyAppRemote mSpotifyAppRemote;
 
     CountDownTimer cdt;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +59,10 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 CountDownTimer cdt = new CountDownTimer(1000 * 60 * np.getValue(), 1000) {
-                    @SuppressLint("SetTextI18n")
                     public void onTick(long millisUntilFinished) {
                         long sec = millisUntilFinished / 1000;
                         long min = sec / 60;
-                        tf.setText(getString(R.string.TimeRemaining) + min + ":" + sec % 60);
+                        tf.setText(String.format(Locale.GERMAN,"%s %02d:%02d", getString(R.string.TimeRemaining), min, sec % 60));
                     }
                     public void onFinish() {
                         try {
@@ -67,12 +77,10 @@ public class MainActivity extends AppCompatActivity {
                 setCDT(cdt);
             }
         });
-        // number picker stuff
+        // number picker min/max
         np.setMinValue(0);
         np.setMaxValue(60);
-        np.setScaleX(2f);
-        np.setScaleY(2f);
-        //Gets whether the selector wheel wraps when reaching the min/max value.
+        //after end continue to scroll from beginning
         np.setWrapSelectorWheel(true);
     }
 
