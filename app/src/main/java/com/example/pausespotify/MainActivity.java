@@ -1,5 +1,6 @@
 package com.example.pausespotify;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
@@ -47,14 +48,15 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 CountDownTimer cdt = new CountDownTimer(1000 * 60 * np.getValue(), 1000) {
+                    @SuppressLint("SetTextI18n")
                     public void onTick(long millisUntilFinished) {
                         long sec = millisUntilFinished / 1000;
                         long min = sec / 60;
-                        tf.setText("time remaining " + min + ":" + sec % 60);
+                        tf.setText(getString(R.string.TimeRemaining) + min + ":" + sec % 60);
                     }
                     public void onFinish() {
                         try {
-                            tf.setText("finished");
+                            tf.setText(getString(R.string.Finished));
                             sendPause();
                         } catch (Exception e){
                             System.out.println();

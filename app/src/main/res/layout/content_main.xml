@@ -30,7 +30,7 @@
         android:layout_marginRight="8dp"
         android:scaleX="2"
         android:scaleY="2"
-        android:text="min"
+        android:text="@string/Minute"
         app:layout_constraintBottom_toBottomOf="@+id/np"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/np"

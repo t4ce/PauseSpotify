@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">pause spotify</string>
     <string name="action_settings">settings</string>
+    <string name="Minute">min</string>
+    <string name="Finished">finished</string>
+    <string name="TimeRemaining">time remaining</string>
 </resources>
