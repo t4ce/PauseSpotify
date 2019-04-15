@@ -85,9 +85,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    private void sendPause() {
         ConnectionParams connectionParams =
                 new ConnectionParams.Builder(CLIENT_ID)
                         .setRedirectUri(REDIRECT_URI)
@@ -96,27 +94,15 @@ public class MainActivity extends AppCompatActivity {
 
         SpotifyAppRemote.connect(this, connectionParams,
                 new Connector.ConnectionListener() {
-
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
-                        mSpotifyAppRemote = spotifyAppRemote;
-                        Log.d("MainActivity", "Connected! Yay!");
-                        // Now you can start interacting with App Remote
-
+                        spotifyAppRemote.getPlayerApi().pause();
+                        SpotifyAppRemote.disconnect(spotifyAppRemote);
                     }
 
                     public void onFailure(Throwable throwable) {
                         Log.e("MyActivity", throwable.getMessage(), throwable);
                     }
                 });
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        SpotifyAppRemote.disconnect(mSpotifyAppRemote);
-    }
-    private void sendPause() {
-        mSpotifyAppRemote.getPlayerApi().pause();
     }
 
     @Override
