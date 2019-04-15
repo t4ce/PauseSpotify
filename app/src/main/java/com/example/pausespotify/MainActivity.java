@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String CLIENT_ID = "9f1f5bb5f92a43ac804d7887c9dad3fd";
     private static final String REDIRECT_URI = "testschema://callback";
-    private SpotifyAppRemote mSpotifyAppRemote;
 
     CountDownTimer cdt;
 
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "timer started with: " + np.getValue() + "min.", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "started " + np.getValue() + " min timer", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
                 if (cdt != null){
@@ -106,27 +105,11 @@ public class MainActivity extends AppCompatActivity {
                 new Connector.ConnectionListener() {
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
                         spotifyAppRemote.getPlayerApi().pause();
-                        SpotifyAppRemote.disconnect(spotifyAppRemote);
                     }
 
                     public void onFailure(Throwable throwable) {
-                        Log.e("MyActivity", throwable.getMessage(), throwable);
+                        Log.e("pause spotify", throwable.getMessage(), throwable);
                     }
                 });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }
