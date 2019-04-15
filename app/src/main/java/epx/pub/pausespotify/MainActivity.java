@@ -1,4 +1,4 @@
-package com.example.pausespotify;
+package epx.pub.pausespotify;
 
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -16,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+
+import com.example.pausespotify.R;
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
