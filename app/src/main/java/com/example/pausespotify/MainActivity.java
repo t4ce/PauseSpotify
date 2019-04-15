@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.NumberPicker;
+
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
@@ -26,15 +28,35 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final NumberPicker np = (NumberPicker) findViewById(R.id.np);
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "sending pause", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Timer started with: " + np.getValue()+"min.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                connected();
+                try {
+                    connected();
+                } catch (Exception e){
+                    System.out.println();
+                }
             }
         });
+
+
+
+        //Populate NumberPicker values from minimum and maximum value range
+        //Set the minimum value of NumberPicker
+        np.setMinValue(1);
+        //Specify the maximum value/number of NumberPicker
+        np.setMaxValue(60);
+
+        np.setScaleX(2f);
+
+        np.setScaleY(2f);
+        //Gets whether the selector wheel wraps when reaching the min/max value.
+        np.setWrapSelectorWheel(true);
     }
 
     @Override
