@@ -1,14 +1,23 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'pausespotify'
+            keyPassword 'Ttest1000'
+            storeFile file('C:/Users/jonas/OneDrive/Entwicklung/Android/keestore/keestore.jks')
+            storePassword 'Ttest1000'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.pausespotify"
+        applicationId 'epx.pub.pausespotify'
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.config
     }
     buildTypes {
         release {
