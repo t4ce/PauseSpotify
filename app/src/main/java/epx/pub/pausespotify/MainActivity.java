@@ -14,8 +14,6 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-
-import com.example.pausespotify.R;
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
@@ -74,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                             tf.setText(getString(R.string.Finished));
                             sendPause();
                         } catch (Exception e){
-                            System.out.println();
+                            System.out.println(e);
                         }
                     }
                 }.start();
