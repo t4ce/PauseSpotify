@@ -3,5 +3,5 @@
     <string name="action_settings">settings</string>
     <string name="Minute">min</string>
     <string name="Finished">finished</string>
-    <string name="TimeRemaining">remaining</string>
+    <string name="TimeRemaining">remaining %02d:%02d</string>
 </resources>
