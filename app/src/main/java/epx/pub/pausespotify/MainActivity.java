@@ -43,9 +43,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Resources res = getResources();
-        Drawable drawable = ResourcesCompat.getDrawable(res, R.drawable.background, null);
-
         final NumberPicker np = findViewById(R.id.np);
         final TextView tf = findViewById(R.id.tf);
 
@@ -85,10 +82,28 @@ public class MainActivity extends AppCompatActivity {
         np.setMaxValue(60);
         //after end continue to scroll from beginning
         np.setWrapSelectorWheel(true);
+
+        checkConnect();
+    }
+
+    // dummy connect used to display spotify permission page
+    void checkConnect(){
+        ConnectionParams connectionParams =
+                new ConnectionParams.Builder(CLIENT_ID)
+                        .setRedirectUri(REDIRECT_URI)
+                        .showAuthView(true)
+                        .build();
+
+        SpotifyAppRemote.connect(this, connectionParams,null);
     }
 
     void setCDT(CountDownTimer cdt){
         this.cdt = cdt;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
