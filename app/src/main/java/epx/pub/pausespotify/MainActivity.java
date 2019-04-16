@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onTick(long millisUntilFinished) {
                     long sec = millisUntilFinished / 1000;
                     long min = sec / 60;
-                    tf.setText( String.format(getString(R.string.TimeRemaining), min, sec % 60));
+                    tf.setText(String.format(getString(R.string.TimeRemaining), min, sec % 60));
                 }
                 public void onFinish() {
                     tf.setText(R.string.Finished);
@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         SpotifyAppRemote.connect(this, connectionParams,
                 new Connector.ConnectionListener() {
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
-                        SpotifyAppRemote.disconnect(spotifyAppRemote);
                     }
                     public void onFailure(Throwable throwable) {
                     }
@@ -70,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 new Connector.ConnectionListener() {
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
                         spotifyAppRemote.getPlayerApi().pause();
-                        SpotifyAppRemote.disconnect(spotifyAppRemote);
                     }
                     public void onFailure(Throwable throwable) {
                     }
